@@ -1,0 +1,40 @@
+C:\Program Files (x86)\graalvm-jdk-17.0.9+11.1
+
+setx /M JAVA_HOME "C:\Program Files (x86)\graalvm-jdk-17.0.9+11.1"
+
+setx /M PATH "C:\Program Files (x86)\graalvm-jdk-17.0.9+11.1\bin;%PATH%"
+
+
+setx /M MAVEN_HOME "C:\apache-maven-3.9.2"
+setx /M PATH "C:\apache-maven-3.9.2\bin;%PATH%"
+
+
+
+mvn -U io.quarkus:quarkus-maven-plugin:create \
+	-DprojectGroupId=com.alphaone.quarkus.starting \
+	-DprojectArtifactId=rest-book \
+	-DclassName="com.alphaone.quarkus.starting.BookResource" \
+	-Dpath="/api/books" \
+	-Dextensions="resteasy-jsonb"
+
+
+mvn -U io.quarkus:quarkus-maven-plugin:create -DprojectGroupId=com.alphaone.quarkus.starting 	-DprojectArtifactId=rest-book -DclassName="com.alphaone.quarkus.starting.BookResource" -Dpath="/api/books" -Dextensions="resteasy-jsonb"
+
+
+mvn quarkus:dev
+
+
+
+#Packaging
+#bootstrap
+mvn package -DskipTests
+
+#uber 
+mvn package -DskipTests -Dquarkus.package.type=uber-jar
+
+#native
+mvn package -DskipTests -Dquarkus.package.type=native
+mvn package -Pnative
+
+#Run native tests
+mvn verify -Pnative
