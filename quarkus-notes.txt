@@ -38,3 +38,19 @@ mvn package -Pnative
 
 #Run native tests
 mvn verify -Pnative
+
+#Dockerize App
+
+	#updating pom.xml
+	mvn quarkus:add-extension -Dextensions="container-image-docker" 
+
+	#build with jvm
+
+	mvn package -Dquarkus.container-image.build=true -Dquarkus.pacakge.type=jar
+
+	mvn package -Dquarkus.container-image.build=true -Dquarkus.pacakge.type=jar -Dquarkus.container.tag=jvm
+
+	docker image ls | grep alphaone
+
+	docker run -i --rm -p 8080:8080 alphaone/rest-book:jvm
+
